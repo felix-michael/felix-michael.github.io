@@ -12,384 +12,372 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Linkedin, Download, Award, Book, Wrench, ChevronDown, ChevronUp, FileText } from 'lucide-react';
+        const { useState } = React;
 
-export default function Portfolio() {
-  const [expandedProject, setExpandedProject] = useState(null);
-  const [currentSection, setCurrentSection] = useState('hero');
+        function Portfolio() {
+          const [expandedProject, setExpandedProject] = useState(null);
 
-  const scrollToSection = (sectionId) => {
-    setCurrentSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+          const projects = [
+            {
+              id: 1,
+              title: "Master's Thesis: EV Battery Thermal Management",
+              subtitle: "3D-Printed PCM/TPMS Heat Sink Design & Experimental Validation",
+              date: "2025-2026",
+              category: "Graduate Research",
+              description: "Developing advanced thermal management solutions for electric vehicle battery systems using phase change materials (PCM) and triply periodic minimal surface (TPMS) structures in 3D-printed heat sinks.",
+              highlights: [
+                "Focus on EV battery cooling optimization",
+                "Graduate TA for Senior Design: CAD/DFM reviews, test planning, documentation",
+                "Design-to-validation cycle management",
+                "Experimental thermal performance testing"
+              ],
+              skills: ["Thermal Analysis", "3D Printing", "Heat Transfer", "Battery Systems", "CAD", "Test Planning"]
+            },
+            {
+              id: 2,
+              title: "Electrochemical Micro-Orifice Deburring System",
+              subtitle: "Best Senior Design Project Award",
+              date: "September 2024 - May 2025",
+              category: "Senior Design",
+              description: "Automated precision manufacturing system for electrochemical machining (ECM) deburring of micro-orifices down to 0.001 inch diameter, improving edge quality and flow consistency.",
+              highlights: [
+                "Won Best Senior Design Project award",
+                "Automated needle positioning with stepper motor + Arduino control",
+                "Established process-parameter window for sub-micron accuracy",
+                "Industry partnership with O'Keefe Controls",
+                "Executed comprehensive test plan and documentation"
+              ],
+              skills: ["ECM", "Arduino", "Precision Manufacturing", "Process Optimization", "GD&T", "Technical Documentation"],
+              document: "senior-design-poster.pdf"
+            },
+            {
+              id: 3,
+              title: "Thermal Performance Optimization Through Custom Heat Sink Design",
+              subtitle: "Design Competition Project",
+              date: "2024",
+              category: "Research & Design",
+              description: "Comparative analysis of heat sink designs using 3D modeling, ANSYS simulations, and experimental testing. Optimized thermal management through innovative geometric configurations.",
+              highlights: [
+                "Designed honeycomb structure with compartmentalized fluid flow",
+                "Best performance in forced convection cooling (31.9 seconds)",
+                "ANSYS thermal simulation and validation",
+                "3D-printed copper-PLA composite heat sinks",
+                "Balanced free and forced convection performance"
+              ],
+              skills: ["ANSYS", "SolidWorks", "Thermal Analysis", "3D Printing", "Design Optimization", "CFD"],
+              document: "heat-sink-project-poster.pdf"
+            },
+            {
+              id: 4,
+              title: "Convective Heat Transfer Coefficient Study",
+              subtitle: "Forced Convection Research",
+              date: "Fall 2024",
+              category: "Laboratory Research",
+              description: "Experimental investigation of the relationship between air velocity and heat transfer efficiency in forced convection systems, critical for heat exchanger design applications.",
+              highlights: [
+                "Measured heat transfer coefficients from 11.84 to 19.85 W/m²°C",
+                "Analyzed velocity effects on thermal performance (0-1.5 m/s)",
+                "67% improvement over free convection systems",
+                "Temperature reduction from 47.1°C to 28.1°C",
+                "Full experimental setup, data analysis, and technical reporting"
+              ],
+              skills: ["Heat Transfer", "Experimental Design", "Data Analysis", "MATLAB", "Technical Writing"],
+              document: "heat-transfer-lab-report.pdf"
+            }
+          ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Master's Thesis: EV Battery Thermal Management",
-      subtitle: "3D-Printed PCM/TPMS Heat Sink Design & Experimental Validation",
-      date: "2025-2026",
-      category: "Graduate Research",
-      description: "Developing advanced thermal management solutions for electric vehicle battery systems using phase change materials (PCM) and triply periodic minimal surface (TPMS) structures in 3D-printed heat sinks.",
-      highlights: [
-        "Focus on EV battery cooling optimization",
-        "Graduate TA for Senior Design: CAD/DFM reviews, test planning, documentation",
-        "Design-to-validation cycle management",
-        "Experimental thermal performance testing"
-      ],
-      skills: ["Thermal Analysis", "3D Printing", "Heat Transfer", "Battery Systems", "CAD", "Test Planning"]
-    },
-    {
-      id: 2,
-      title: "Electrochemical Micro-Orifice Deburring System",
-      subtitle: "Best Senior Design Project Award",
-      date: "September 2024 - May 2025",
-      category: "Senior Design",
-      description: "Automated precision manufacturing system for electrochemical machining (ECM) deburring of micro-orifices down to 0.001 inch diameter, improving edge quality and flow consistency.",
-      highlights: [
-        "Won Best Senior Design Project award",
-        "Automated needle positioning with stepper motor + Arduino control",
-        "Established process-parameter window for sub-micron accuracy",
-        "Industry partnership with O'Keefe Controls",
-        "Executed comprehensive test plan and documentation"
-      ],
-      skills: ["ECM", "Arduino", "Precision Manufacturing", "Process Optimization", "GD&T", "Technical Documentation"],
-      document: "senior-design-poster.pdf"
-    },
-    {
-      id: 3,
-      title: "Thermal Performance Optimization Through Custom Heat Sink Design",
-      subtitle: "Design Competition Project",
-      date: "2024",
-      category: "Research & Design",
-      description: "Comparative analysis of heat sink designs using 3D modeling, ANSYS simulations, and experimental testing. Optimized thermal management through innovative geometric configurations.",
-      highlights: [
-        "Designed honeycomb structure with compartmentalized fluid flow",
-        "Best performance in forced convection cooling (31.9 seconds)",
-        "ANSYS thermal simulation and validation",
-        "3D-printed copper-PLA composite heat sinks",
-        "Balanced free and forced convection performance"
-      ],
-      skills: ["ANSYS", "SolidWorks", "Thermal Analysis", "3D Printing", "Design Optimization", "CFD"],
-      document: "heat-sink-project-poster.pdf"
-    },
-    {
-      id: 4,
-      title: "Convective Heat Transfer Coefficient Study",
-      subtitle: "Forced Convection Research",
-      date: "Fall 2024",
-      category: "Laboratory Research",
-      description: "Experimental investigation of the relationship between air velocity and heat transfer efficiency in forced convection systems, critical for heat exchanger design applications.",
-      highlights: [
-        "Measured heat transfer coefficients from 11.84 to 19.85 W/m²°C",
-        "Analyzed velocity effects on thermal performance (0-1.5 m/s)",
-        "67% improvement over free convection systems",
-        "Temperature reduction from 47.1°C to 28.1°C",
-        "Full experimental setup, data analysis, and technical reporting"
-      ],
-      skills: ["Heat Transfer", "Experimental Design", "Data Analysis", "MATLAB", "Technical Writing"],
-      document: "heat-transfer-lab-report.pdf"
-    }
-  ];
+          const skills = {
+            "Design & Analysis": ["SolidWorks", "Inventor", "AutoCAD", "GD&T", "DFM", "ANSYS", "MATLAB"],
+            "Controls & Programming": ["Arduino/Arduino IDE", "Python"],
+            "Manufacturing Processes": ["ECM", "CNC", "3D Printing"],
+            "Thermal Engineering": ["Heat Transfer Analysis", "Thermal Management", "Battery Cooling", "PCM Design"]
+          };
 
-  const skills = {
-    "Design & Analysis": ["SolidWorks", "Inventor", "AutoCAD", "GD&T", "DFM", "ANSYS", "MATLAB"],
-    "Controls & Programming": ["Arduino/Arduino IDE", "Python"],
-    "Manufacturing Processes": ["ECM", "CNC", "3D Printing"],
-    "Thermal Engineering": ["Heat Transfer Analysis", "Thermal Management", "Battery Cooling", "PCM Design"]
-  };
+          const scrollToSection = (sectionId) => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative" 
-        style={{
-          backgroundImage: 'linear-gradient(rgba(30, 41, 59, 0.85), rgba(51, 65, 85, 0.85)), url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-          backgroundSize: 'cover, 60px 60px'
-        }}
-      >
-        <div className="text-center text-white px-6">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">Mechanical Engineer</h1>
-          <p className="text-2xl md:text-3xl mb-3 text-blue-200">Fairfield University</p>
-          <p className="text-4xl md:text-5xl font-bold mb-12 text-white">Michael Felix</p>
-          
-          <div className="flex flex-wrap justify-center gap-4">
-            <button
-              onClick={() => scrollToSection('portfolio')}
-              className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105"
-            >
-              Portfolio
-            </button>
-            <a
-              href="documents/resume.pdf"
-              download
-              className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105 inline-block"
-            >
-              Resume
-            </a>
-            <a
-              href="https://www.linkedin.com/in/michael-felix-b35b8a231/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105 inline-block"
-            >
-              LinkedIn
-            </a>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105"
-            >
-              Contact
-            </button>
-          </div>
-        </div>
-        
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown size={40} className="text-white opacity-70" />
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="bg-white py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-800 mb-6 text-center">About Me</h2>
-          <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg shadow-md p-8">
-            <p className="text-slate-700 leading-relaxed text-lg text-center max-w-4xl mx-auto">
-              MSME candidate specializing in thermal management and precision manufacturing. Award-winning work in EV battery cooling, 
-              electrochemical machining, and design-to-validation engineering cycles. Proven ability to lead cross-functional teams and 
-              translate analysis into manufacturable, test-validated solutions through hands-on prototyping and data-driven iteration.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 mt-6 text-slate-700">
-              <span className="flex items-center gap-2">
-                <MapPin size={20} className="text-blue-600" /> Morris Plains, NJ
-              </span>
-              <a href="mailto:michaelefelix.25@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition">
-                <Mail size={20} className="text-blue-600" /> michaelefelix.25@gmail.com
-              </a>
-              <a href="tel:973-462-7097" className="flex items-center gap-2 hover:text-blue-600 transition">
-                <Phone size={20} className="text-blue-600" /> 973-462-7097
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Education */}
-      <section id="education" className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center gap-3">
-            <Book className="text-blue-600" /> Education
-          </h2>
-          <div className="space-y-4">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex flex-wrap justify-between items-start mb-2">
-                <div>
-                  <h3 className="text-xl font-semibold text-slate-800">Master of Science in Mechanical Engineering</h3>
-                  <p className="text-slate-600">Fairfield University, Fairfield, CT</p>
-                </div>
-                <span className="text-slate-500 font-medium">Class of 2026</span>
-              </div>
-              <p className="text-slate-700 mt-2">
-                <strong>Thesis:</strong> 3D-printed PCM/TPMS heat-sink design & experimental validation for EV battery thermal management
-              </p>
-              <p className="text-slate-600 mt-1">Graduate TA (Senior Design): CAD/DFM reviews, test planning, documentation</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex flex-wrap justify-between items-start mb-2">
-                <div>
-                  <h3 className="text-xl font-semibold text-slate-800">Bachelor of Science in Mechanical Engineering</h3>
-                  <p className="text-slate-600">Fairfield University, Fairfield, CT | Minor: Mathematics</p>
-                </div>
-                <span className="text-slate-500 font-medium">Class of 2025</span>
-              </div>
-              <p className="text-slate-700 mt-2"><strong>GPA:</strong> 3.67 Overall | 3.68 Major</p>
-              <div className="flex flex-wrap gap-2 mt-3">
-                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center gap-1">
-                  <Award size={14} /> Tau Beta Pi Member
-                </span>
-                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm flex items-center gap-1">
-                  <Award size={14} /> Cum Laude
-                </span>
-                <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
-                  Study Abroad: Galway, Ireland
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section id="portfolio" className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-800 mb-8 flex items-center justify-center gap-3">
-            <Wrench className="text-blue-600" /> Engineering Projects
-          </h2>
-          <div className="space-y-4">
-            {projects.map((project) => (
-              <div key={project.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-slate-200">
-                <div 
-                  className="p-6 cursor-pointer hover:bg-slate-50 transition"
-                  onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-                >
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium mb-2">
-                            {project.category}
-                          </span>
-                          <h3 className="text-xl font-semibold text-slate-800">{project.title}</h3>
-                          <p className="text-slate-600 italic">{project.subtitle}</p>
-                        </div>
-                        <div className="text-right ml-4">
-                          <p className="text-slate-500 text-sm mb-2">{project.date}</p>
-                          {expandedProject === project.id ? 
-                            <ChevronUp className="text-blue-600" size={24} /> : 
-                            <ChevronDown className="text-slate-400" size={24} />
-                          }
-                        </div>
-                      </div>
-                      <p className="text-slate-700 mt-3">{project.description}</p>
-                    </div>
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+              {/* Hero Section */}
+              <section id="hero" className="min-h-screen flex items-center justify-center relative" 
+                style={{
+                  backgroundImage: 'linear-gradient(rgba(30, 41, 59, 0.85), rgba(51, 65, 85, 0.85)), url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+                  backgroundSize: 'cover, 60px 60px'
+                }}
+              >
+                <div className="text-center text-white px-6">
+                  <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">Mechanical Engineer</h1>
+                  <p className="text-2xl md:text-3xl mb-3 text-blue-200">Fairfield University</p>
+                  <p className="text-4xl md:text-5xl font-bold mb-12 text-white">Michael Felix</p>
+                  
+                  <div className="flex flex-wrap justify-center gap-4">
+                    <button
+                      onClick={() => scrollToSection('portfolio')}
+                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105"
+                    >
+                      Portfolio
+                    </button>
+                    <a
+                      href="documents/resume.pdf"
+                      download
+                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105 inline-block"
+                    >
+                      Resume
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/michael-felix-b35b8a231/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105 inline-block"
+                    >
+                      LinkedIn
+                    </a>
+                    <button
+                      onClick={() => scrollToSection('contact')}
+                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105"
+                    >
+                      Contact
+                    </button>
                   </div>
                 </div>
                 
-                {expandedProject === project.id && (
-                  <div className="px-6 pb-6 border-t border-slate-200 pt-4">
-                    <h4 className="font-semibold text-slate-800 mb-2">Key Highlights:</h4>
-                    <ul className="space-y-1 mb-4">
-                      {project.highlights.map((highlight, idx) => (
-                        <li key={idx} className="text-slate-700 flex items-start">
-                          <span className="text-blue-600 mr-2">•</span>
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-slate-800 mb-2">Skills Applied:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {project.skills.map((skill, idx) => (
-                          <span key={idx} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
-                            {skill}
-                          </span>
-                        ))}
+                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                  <svg className="w-10 h-10 text-white opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </section>
+
+              {/* About Section */}
+              <section id="about" className="bg-white py-16">
+                <div className="max-w-6xl mx-auto px-6">
+                  <h2 className="text-3xl font-bold text-slate-800 mb-6 text-center">About Me</h2>
+                  <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg shadow-md p-8">
+                    <p className="text-slate-700 leading-relaxed text-lg text-center max-w-4xl mx-auto">
+                      MSME candidate specializing in thermal management and precision manufacturing. Award-winning work in EV battery cooling, 
+                      electrochemical machining, and design-to-validation engineering cycles. Proven ability to lead cross-functional teams and 
+                      translate analysis into manufacturable, test-validated solutions through hands-on prototyping and data-driven iteration.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-4 mt-6 text-slate-700">
+                      <span className="flex items-center gap-2">
+                        📍 Morris Plains, NJ
+                      </span>
+                      <a href="mailto:michaelefelix.25@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition">
+                        ✉️ michaelefelix.25@gmail.com
+                      </a>
+                      <a href="tel:973-462-7097" className="flex items-center gap-2 hover:text-blue-600 transition">
+                        📞 973-462-7097
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Education */}
+              <section id="education" className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
+                <div className="max-w-6xl mx-auto px-6">
+                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">📚 Education</h2>
+                  <div className="space-y-4">
+                    <div className="bg-white rounded-lg shadow-md p-6">
+                      <div className="flex flex-wrap justify-between items-start mb-2">
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-800">Master of Science in Mechanical Engineering</h3>
+                          <p className="text-slate-600">Fairfield University, Fairfield, CT</p>
+                        </div>
+                        <span className="text-slate-500 font-medium">Class of 2026</span>
+                      </div>
+                      <p className="text-slate-700 mt-2">
+                        <strong>Thesis:</strong> 3D-printed PCM/TPMS heat-sink design & experimental validation for EV battery thermal management
+                      </p>
+                      <p className="text-slate-600 mt-1">Graduate TA (Senior Design): CAD/DFM reviews, test planning, documentation</p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-md p-6">
+                      <div className="flex flex-wrap justify-between items-start mb-2">
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-800">Bachelor of Science in Mechanical Engineering</h3>
+                          <p className="text-slate-600">Fairfield University, Fairfield, CT | Minor: Mathematics</p>
+                        </div>
+                        <span className="text-slate-500 font-medium">Class of 2025</span>
+                      </div>
+                      <p className="text-slate-700 mt-2"><strong>GPA:</strong> 3.67 Overall | 3.68 Major</p>
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">🏆 Tau Beta Pi Member</span>
+                        <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">🏆 Cum Laude</span>
+                        <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">Study Abroad: Galway, Ireland</span>
                       </div>
                     </div>
-                    {project.document && (
-                      <a
-                        href={`documents/${project.document}`}
-                        download
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition"
-                      >
-                        <FileText size={18} />
-                        Download Project Documentation
-                      </a>
-                    )}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section id="skills" className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Technical Skills</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {Object.entries(skills).map(([category, skillList]) => (
-              <div key={category} className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-semibold text-slate-800 mb-3">{category}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {skillList.map((skill, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-blue-50 text-blue-800 rounded-md text-sm font-medium">
-                      {skill}
-                    </span>
-                  ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              </section>
 
-      {/* Work Experience */}
-      <section id="experience" className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Work Experience</h2>
-          <div className="space-y-4">
-            <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
-              <div className="flex flex-wrap justify-between items-start mb-2">
-                <div>
-                  <h3 className="text-xl font-semibold text-slate-800">Inspector Assistant</h3>
-                  <p className="text-slate-600">Teamworks Real Estate Inspections, Paramus, NJ</p>
+              {/* Projects */}
+              <section id="portfolio" className="py-16 bg-white">
+                <div className="max-w-6xl mx-auto px-6">
+                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">🔧 Engineering Projects</h2>
+                  <div className="space-y-4">
+                    {projects.map((project) => (
+                      <div key={project.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-slate-200">
+                        <div 
+                          className="p-6 cursor-pointer hover:bg-slate-50 transition"
+                          onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
+                        >
+                          <div className="flex justify-between items-start mb-2">
+                            <div className="flex-1">
+                              <div className="flex items-start justify-between">
+                                <div>
+                                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium mb-2">
+                                    {project.category}
+                                  </span>
+                                  <h3 className="text-xl font-semibold text-slate-800">{project.title}</h3>
+                                  <p className="text-slate-600 italic">{project.subtitle}</p>
+                                </div>
+                                <div className="text-right ml-4">
+                                  <p className="text-slate-500 text-sm mb-2">{project.date}</p>
+                                  <span className="text-blue-600 text-2xl">{expandedProject === project.id ? '▲' : '▼'}</span>
+                                </div>
+                              </div>
+                              <p className="text-slate-700 mt-3">{project.description}</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {expandedProject === project.id && (
+                          <div className="px-6 pb-6 border-t border-slate-200 pt-4">
+                            <h4 className="font-semibold text-slate-800 mb-2">Key Highlights:</h4>
+                            <ul className="space-y-1 mb-4">
+                              {project.highlights.map((highlight, idx) => (
+                                <li key={idx} className="text-slate-700 flex items-start">
+                                  <span className="text-blue-600 mr-2">•</span>
+                                  {highlight}
+                                </li>
+                              ))}
+                            </ul>
+                            <div className="mb-4">
+                              <h4 className="font-semibold text-slate-800 mb-2">Skills Applied:</h4>
+                              <div className="flex flex-wrap gap-2">
+                                {project.skills.map((skill, idx) => (
+                                  <span key={idx} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
+                                    {skill}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            {project.document && (
+                              <a
+                                href={`documents/${project.document}`}
+                                download
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition"
+                              >
+                                📄 Download Project Documentation
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <span className="text-slate-500">May 2024 - August 2024</span>
-              </div>
-              <ul className="space-y-1 mt-3 text-slate-700">
-                <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Gained hands-on CAD experience documenting field data and creating inspection reports</li>
-                <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Assisted property evaluations using drone and aerial technology</li>
-                <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Shadowed survey teams on boundary, topographic, and construction site assessments</li>
-                <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Evaluated structural components, plumbing, electrical, and HVAC systems</li>
-              </ul>
+              </section>
+
+              {/* Skills */}
+              <section id="skills" className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
+                <div className="max-w-6xl mx-auto px-6">
+                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Technical Skills</h2>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {Object.entries(skills).map(([category, skillList]) => (
+                      <div key={category} className="bg-white rounded-lg shadow-md p-6">
+                        <h3 className="text-lg font-semibold text-slate-800 mb-3">{category}</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {skillList.map((skill, idx) => (
+                            <span key={idx} className="px-3 py-1 bg-blue-50 text-blue-800 rounded-md text-sm font-medium">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Work Experience */}
+              <section id="experience" className="py-16 bg-white">
+                <div className="max-w-6xl mx-auto px-6">
+                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Work Experience</h2>
+                  <div className="space-y-4">
+                    <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
+                      <div className="flex flex-wrap justify-between items-start mb-2">
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-800">Inspector Assistant</h3>
+                          <p className="text-slate-600">Teamworks Real Estate Inspections, Paramus, NJ</p>
+                        </div>
+                        <span className="text-slate-500">May 2024 - August 2024</span>
+                      </div>
+                      <ul className="space-y-1 mt-3 text-slate-700">
+                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Gained hands-on CAD experience documenting field data and creating inspection reports</li>
+                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Assisted property evaluations using drone and aerial technology</li>
+                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Shadowed survey teams on boundary, topographic, and construction site assessments</li>
+                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Evaluated structural components, plumbing, electrical, and HVAC systems</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
+                      <div className="flex flex-wrap justify-between items-start mb-2">
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-800">Assistant Head of Outdoor Golf Operations</h3>
+                          <p className="text-slate-600">Spring Brook Country Club, Morristown, NJ</p>
+                        </div>
+                        <span className="text-slate-500">May 2021 - Present</span>
+                      </div>
+                      <ul className="space-y-1 mt-3 text-slate-700">
+                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Led supervisor coverage and projects to maintain smooth operations and schedules</li>
+                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Trained new staff on SOPs and service standards</li>
+                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Resolved member issues through clear communication and problem solving</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Contact */}
+              <section id="contact" className="py-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                  <h2 className="text-3xl font-bold mb-6">Let's Connect</h2>
+                  <p className="text-slate-300 mb-8 text-lg">
+                    Interested in discussing thermal management solutions, precision engineering, or collaboration opportunities?
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-6">
+                    <a href="mailto:michaelefelix.25@gmail.com" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
+                      ✉️ Email Me
+                    </a>
+                    <a href="https://www.linkedin.com/in/michael-felix-b35b8a231/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
+                      💼 LinkedIn
+                    </a>
+                    <a href="tel:973-462-7097" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
+                      📞 Call Me
+                    </a>
+                    <a href="documents/resume.pdf" download className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
+                      📥 Download Resume
+                    </a>
+                  </div>
+                </div>
+              </section>
+
+              {/* Footer */}
+              <footer className="bg-slate-900 text-white py-6">
+                <div className="max-w-6xl mx-auto px-6 text-center">
+                  <p className="text-slate-400 text-sm">© 2025 Michael Felix. All rights reserved.</p>
+                </div>
+              </footer>
             </div>
-            <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
-              <div className="flex flex-wrap justify-between items-start mb-2">
-                <div>
-                  <h3 className="text-xl font-semibold text-slate-800">Assistant Head of Outdoor Golf Operations</h3>
-                  <p className="text-slate-600">Spring Brook Country Club, Morristown, NJ</p>
-                </div>
-                <span className="text-slate-500">May 2021 - Present</span>
-              </div>
-              <ul className="space-y-1 mt-3 text-slate-700">
-                <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Led supervisor coverage and projects to maintain smooth operations and schedules</li>
-                <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Trained new staff on SOPs and service standards</li>
-                <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Resolved member issues through clear communication and problem solving</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+          );
+        }
 
-      {/* Contact */}
-      <section id="contact" className="py-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-6">Let's Connect</h2>
-          <p className="text-slate-300 mb-8 text-lg">
-            Interested in discussing thermal management solutions, precision engineering, or collaboration opportunities?
-          </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            <a href="mailto:michaelefelix.25@gmail.com" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-              <Mail size={20} /> Email Me
-            </a>
-            <a href="https://www.linkedin.com/in/michael-felix-b35b8a231/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-              <Linkedin size={20} /> LinkedIn
-            </a>
-            <a href="tel:973-462-7097" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-              <Phone size={20} /> Call Me
-            </a>
-            <a href="documents/resume.pdf" download className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-              <Download size={20} /> Download Resume
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-6">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <p className="text-slate-400 text-sm">© 2025 Michael Felix. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-  );
-}
-</script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Portfolio />);
+    </script>
 </body>
 </html>
