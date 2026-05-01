@@ -231,7 +231,11 @@
                         "Contributed a methodology for hybrid TPMS design along non-linear paths and a benchmark for future graded/geometry-tuned thermal storage elements"
                     ],
                     skills: ["MATLAB", "TPMS Lattice Design", "Metal 3D Printing (MPD)", "Thermal Instrumentation", "SolidWorks", "STL Generation", "Heat Transfer", "PCM Systems"],
-                    resultCallout: "Key Finding: Lower-density lattices (25–35%) outperformed the higher-density sample in PCM heat distribution — a counterintuitive result driven by the surface-area-to-PCM-volume ratio."
+                    resultCallout: "Key Finding: Lower-density lattices (25–35%) outperformed the higher-density sample in PCM heat distribution — a counterintuitive result driven by the surface-area-to-PCM-volume ratio.",
+                    documents: [
+                        { label: "↓ Symposium Poster", file: "Thesis_Symposium_Poster_Felix.pdf" },
+                        { label: "↓ Thesis Abstract", file: "Thesis%20Information%20-%20Michael%20Felix.pdf" }
+                    ]
                 },
                 {
                     id: 2,
@@ -513,6 +517,15 @@
                                                         <span key={idx} className="skill-tag">{s}</span>
                                                     ))}
                                                 </div>
+                                                {project.documents && (
+                                                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                                                        {project.documents.map((doc, i) => (
+                                                            <a key={i} href={`documents/${doc.file}`} download className="btn-primary" style={{ fontSize: '0.85rem' }}>
+                                                                {doc.label}
+                                                            </a>
+                                                        ))}
+                                                    </div>
+                                                )}
                                                 {project.document && (
                                                     <a href={`documents/${project.document}`} download className="btn-primary" style={{ marginTop: '1rem', fontSize: '0.85rem' }}>
                                                         ↓ Download Documentation
