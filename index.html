@@ -3,11 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michael Felix - Mechanical Engineering Portfolio</title>
+    <title>Michael Felix — Mechanical Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --red: #C8102E;
+            --navy: #1a2340;
+            --navy-light: #243052;
+            --cream: #f8f5f0;
+            --text: #1e1e1e;
+            --muted: #6b7280;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            margin: 0;
+        }
+
+        h1, h2, h3 {
+            font-family: 'DM Serif Display', serif;
+        }
+
+        .hero-bg {
+            background-color: var(--navy);
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(200,16,46,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(100,130,200,0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover, cover, 80px 80px;
+        }
+
+        .section-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 0.2s, transform 0.15s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover { background: #a50d25; transform: translateY(-1px); }
+
+        .btn-ghost {
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            transition: border-color 0.2s, background 0.2s, transform 0.15s;
+            cursor: pointer;
+            background: transparent;
+        }
+        .btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+
+        .skill-tag {
+            background: #f0f4ff;
+            color: #2d4a8a;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge {
+            background: #fff0f2;
+            color: var(--red);
+            padding: 0.2rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-navy {
+            background: #eef1f8;
+            color: var(--navy);
+            padding: 0.2rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            margin: 0;
+        }
+
+        .expand-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid #e5e7eb;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            flex-shrink: 0;
+        }
+        .expand-btn:hover { background: #f3f4f6; border-color: #9ca3af; }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(26, 35, 64, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.15s;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .nav-link:hover { color: white; }
+
+        .result-callout {
+            background: linear-gradient(135deg, #f0f9ff, #e8f4fd);
+            border-left: 3px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #1e40af;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-up { animation: fadeUp 0.6s ease forwards; }
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.25s; opacity: 0; }
+        .delay-3 { animation-delay: 0.4s; opacity: 0; }
+        .delay-4 { animation-delay: 0.55s; opacity: 0; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-8px) translateX(-50%); }
+        }
+        .bounce { animation: bounce 2s ease-in-out infinite; }
+    </style>
 </head>
 <body>
     <div id="root"></div>
@@ -15,371 +207,396 @@
         const { useState } = React;
 
         function Portfolio() {
-          const [expandedProject, setExpandedProject] = useState(null);
+            const [expandedProject, setExpandedProject] = useState(null);
 
-          const projects = [
-            {
-              id: 1,
-              title: "Master's Thesis: EV Battery Thermal Management",
-              subtitle: "3D-Printed PCM/TPMS Heat Sink Design & Experimental Validation",
-              date: "2025-2026",
-              category: "Graduate Research (In Progress)",
-              description: "Developing advanced thermal management solutions for electric vehicle battery systems using phase change materials (PCM) and triply periodic minimal surface (TPMS) structures in 3D-printed heat sinks.",
-              highlights: [
-                "Focus on EV battery cooling optimization",
-                "Graduate TA for Senior Design: CAD/DFM reviews, test planning, documentation",
-                "Design-to-validation cycle management",
-                "Experimental thermal performance testing"
-              ],
-              skills: ["Thermal Analysis", "3D Printing", "Heat Transfer", "Battery Systems", "CAD", "Test Planning"]
-            },
-            {
-              id: 2,
-              title: "Award-Winning Senior Design: Electrochemical Micro-Orifice Deburring System",
-              subtitle: "Best Senior Design Project Award",
-              date: "September 2024 - May 2025",
-              category: "Capstone Project",
-              description: "Automated precision manufacturing system for electrochemical machining (ECM) deburring of micro-orifices down to 0.001 inch diameter, improving edge quality and flow consistency.",
-              highlights: [
-                "Won Best Senior Design Project award",
-                "Automated needle positioning with stepper motor + Arduino control",
-                "Established process-parameter window for sub-micron accuracy",
-                "Industry partnership with O'Keefe Controls",
-                "Executed comprehensive test plan and documentation"
-              ],
-              skills: ["ECM", "Arduino", "Precision Manufacturing", "Process Optimization", "GD&T", "Technical Documentation"],
-              document: "senior-design-poster.pdf"
-            },
-            {
-              id: 3,
-              title: "Design Competition: Thermal Performance Optimization Through Custom Heat Sink Design",
-              subtitle: "ANSYS Simulation & 3D Printing Project",
-              date: "2024",
-              category: "Research & Design Competition",
-              description: "Comparative analysis of heat sink designs using 3D modeling, ANSYS simulations, and experimental testing. Optimized thermal management through innovative geometric configurations.",
-              highlights: [
-                "Designed honeycomb structure with compartmentalized fluid flow",
-                "Best performance in forced convection cooling (31.9 seconds)",
-                "ANSYS thermal simulation and validation",
-                "3D-printed copper-PLA composite heat sinks",
-                "Balanced free and forced convection performance"
-              ],
-              skills: ["ANSYS", "SolidWorks", "Thermal Analysis", "3D Printing", "Design Optimization", "CFD"],
-              document: "heat-sink-project-poster.pdf"
-            },
-            {
-              id: 4,
-              title: "Example Lab Report: Convective Heat Transfer Coefficient Study",
-              subtitle: "Forced Convection Research",
-              date: "Fall 2024",
-              category: "Laboratory Research",
-              description: "Experimental investigation of the relationship between air velocity and heat transfer efficiency in forced convection systems, critical for heat exchanger design applications.",
-              highlights: [
-                "Measured heat transfer coefficients from 11.84 to 19.85 W/m²°C",
-                "Analyzed velocity effects on thermal performance (0-1.5 m/s)",
-                "67% improvement over free convection systems",
-                "Temperature reduction from 47.1°C to 28.1°C",
-                "Full experimental setup, data analysis, and technical reporting"
-              ],
-              skills: ["Heat Transfer", "Experimental Design", "Data Analysis", "MATLAB", "Technical Writing"],
-              document: "heat-transfer-lab-report.pdf"
-            }
-          ];
+            const scrollTo = (id) => {
+                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+            };
 
-          const skills = {
-            "Design & Analysis": ["SolidWorks", "Inventor", "AutoCAD", "GD&T", "DFM", "ANSYS", "MATLAB"],
-            "Controls & Programming": ["Arduino/Arduino IDE", "Python"],
-            "Manufacturing Processes": ["ECM", "CNC", "3D Printing"],
-            "Thermal Engineering": ["Heat Transfer Analysis", "Thermal Management", "Battery Cooling", "PCM Design"]
-          };
+            const projects = [
+                {
+                    id: 1,
+                    title: "Master's Thesis: Hybrid Gyroid-Diamond TPMS Structures with PCM",
+                    subtitle: "3D-Printed Metal Lattice Design, Fabrication & Experimental Validation",
+                    date: "2025–2026",
+                    category: "Graduate Research",
+                    badge: "Completed — May 2026",
+                    description: "Designed, fabricated, and experimentally tested a hybrid Gyroid–Diamond TPMS lattice infiltrated with Paraplast paraffin wax for passive thermal management applications including EV battery cooling and electronics thermal regulation.",
+                    highlights: [
+                        "Designed hybrid geometry alternating between Gyroid and Diamond topology across 8 bands along a curved S-shaped centerline using implicit level-set equations in MATLAB",
+                        "Fabricated three 316L stainless steel samples at 25%, 35%, and 45% relative density via metal paste deposition (MPD) additive manufacturing",
+                        "Instrumented each sample with three Type-J thermocouples (inlet, midpoint, outlet) and logged thermal response via Omega portable data logger",
+                        "D25 and D35 samples showed lower-density lattice delivers heat to surrounding wax faster — conduction surface area to PCM volume ratio favors lower densities in the range tested",
+                        "D45 sample compromised by fabrication defect (incomplete lattice consolidation), demonstrating manufacturing quality is as critical as geometric design",
+                        "Contributed a methodology for hybrid TPMS design along non-linear paths and a benchmark for future graded/geometry-tuned thermal storage elements"
+                    ],
+                    skills: ["MATLAB", "TPMS Lattice Design", "Metal 3D Printing (MPD)", "Thermal Instrumentation", "SolidWorks", "STL Generation", "Heat Transfer", "PCM Systems"],
+                    resultCallout: "Key Finding: Lower-density lattices (25–35%) outperformed the higher-density sample in PCM heat distribution — a counterintuitive result driven by the surface-area-to-PCM-volume ratio."
+                },
+                {
+                    id: 2,
+                    title: "Scorecard: The Sports Diary",
+                    subtitle: "iOS App — Live on the Apple App Store",
+                    date: "2026–Present",
+                    category: "Software / Product",
+                    badge: "Live on App Store",
+                    description: "Developed and shipped a full-stack iOS app in the style of Letterboxd, allowing users to rate and review sports games with a social feed. Built solo from concept to launch.",
+                    highlights: [
+                        "Built with React Native for cross-platform iOS development",
+                        "Supabase backend for real-time data, user authentication, and social feed",
+                        "Integrated live sports data APIs for game results across major leagues",
+                        "Implemented user rating system, personal diary, and social follow/feed features",
+                        "Designed app icon and UI with dark background, mint green accent, clean minimal aesthetic",
+                        "Managed full product lifecycle: design, development, App Store submission, and release"
+                    ],
+                    skills: ["React Native", "Supabase", "iOS Development", "REST APIs", "UI/UX Design", "App Store Connect"]
+                },
+                {
+                    id: 3,
+                    title: "Award-Winning Senior Design: ECM Micro-Orifice Deburring System",
+                    subtitle: "Best Senior Design Project — O'Keefe Controls × Fairfield University",
+                    date: "Sep 2024 – May 2025",
+                    category: "Capstone Project",
+                    badge: "Best Senior Design Award",
+                    description: "Industry-sponsored automated precision manufacturing system for electrochemical machining (ECM) deburring of micro-orifices, achieving sub-micron edge accuracy down to 0.001 in.",
+                    highlights: [
+                        "Won Best Senior Design Project award — selected from all engineering disciplines",
+                        "Automated needle positioning system with stepper motor and Arduino control",
+                        "Established validated process-parameter window for sub-0.001 in. edge accuracy",
+                        "Structured test plan execution across multiple prototype iterations, improving flow consistency",
+                        "Full technical documentation, DFM reviews, and sponsor presentations"
+                    ],
+                    skills: ["ECM", "Arduino", "GD&T", "DFM", "Process Optimization", "Technical Documentation", "Precision Manufacturing"],
+                    document: "senior-design-poster.pdf"
+                },
+                {
+                    id: 4,
+                    title: "Thermal Performance Optimization — Custom Heat Sink Design",
+                    subtitle: "ANSYS Simulation & 3D Printing Design Competition",
+                    date: "2024",
+                    category: "Research & Design Competition",
+                    description: "Comparative study of novel heat sink geometries using SolidWorks modeling, ANSYS simulations, and physical testing. Optimized for both free and forced convection performance.",
+                    highlights: [
+                        "Designed honeycomb geometry with compartmentalized fluid flow channels",
+                        "Best forced convection cooling performance in cohort: 31.9 seconds",
+                        "ANSYS thermal simulation validated against experimental results",
+                        "3D-printed copper-PLA composite heat sink prototypes",
+                        "Balanced performance across free and forced convection regimes"
+                    ],
+                    skills: ["ANSYS", "SolidWorks", "Thermal Analysis", "3D Printing", "Design Optimization", "CFD"],
+                    document: "heat-sink-project-poster.pdf"
+                },
+                {
+                    id: 5,
+                    title: "Convective Heat Transfer Coefficient Study",
+                    subtitle: "Forced Convection Lab Report — Example Technical Writing",
+                    date: "Fall 2024",
+                    category: "Laboratory Research",
+                    description: "Experimental investigation of air velocity effects on heat transfer efficiency in forced convection systems, with direct application to heat exchanger design.",
+                    highlights: [
+                        "Measured convective coefficients from 11.84 to 19.85 W/m²°C across velocity range",
+                        "Analyzed 0–1.5 m/s velocity effects on thermal performance",
+                        "67% improvement in heat transfer over free convection baseline",
+                        "Temperature reduction from 47.1°C to 28.1°C under forced flow",
+                        "Full experimental setup, uncertainty analysis, and MATLAB post-processing"
+                    ],
+                    skills: ["Heat Transfer", "Experimental Design", "Data Analysis", "MATLAB", "Technical Writing"],
+                    document: "heat-transfer-lab-report.pdf"
+                }
+            ];
 
-          const scrollToSection = (sectionId) => {
-            const element = document.getElementById(sectionId);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          };
+            const skills = {
+                "Design & Simulation": ["SolidWorks (CSWA)", "Inventor", "AutoCAD", "ANSYS", "MATLAB", "GD&T", "DFM"],
+                "Additive Manufacturing": ["FDM / 3D Printing", "Metal Paste Deposition (MPD)", "STL Generation", "TPMS Lattice Design", "PrusaSlicer"],
+                "Controls & Programming": ["Python", "Arduino", "LabVIEW", "React Native", "Supabase"],
+                "Thermal Engineering": ["Heat Transfer Analysis", "PCM Thermal Storage", "TPMS Heat Sinks", "Thermocouple Instrumentation", "Battery Thermal Management"]
+            };
 
-          return (
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-              {/* Hero Section */}
-              <section id="hero" className="min-h-screen flex items-center justify-center relative" 
-                style={{
-                  backgroundImage: 'linear-gradient(rgba(30, 41, 59, 0.85), rgba(51, 65, 85, 0.85)), url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-                  backgroundSize: 'cover, 60px 60px'
-                }}
-              >
-                <div className="text-center text-white px-6">
-                  <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">Mechanical Engineer</h1>
-                  <p className="text-2xl md:text-3xl mb-3 text-blue-200">Fairfield University</p>
-                  <p className="text-4xl md:text-5xl font-bold mb-12 text-white">Michael Felix</p>
-                  
-                  <div className="flex flex-wrap justify-center gap-4">
-                    <button
-                      onClick={() => scrollToSection('portfolio')}
-                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105"
-                    >
-                      Portfolio
-                    </button>
-                    <a
-                      href="documents/resume.pdf"
-                      download
-                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105 inline-block"
-                    >
-                      Resume
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/michael-felix-b35b8a231/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105 inline-block"
-                    >
-                      LinkedIn
-                    </a>
-                    <button
-                      onClick={() => scrollToSection('contact')}
-                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg transition transform hover:scale-105"
-                    >
-                      Contact
-                    </button>
-                  </div>
-                </div>
-                
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                  <svg className="w-10 h-10 text-white opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </section>
+            const experience = [
+                {
+                    title: "Graduate Research Assistant — Thermal Management Lab",
+                    company: "Fairfield University",
+                    date: "May 2025 – May 2026",
+                    bullets: [
+                        "Designed and validated 3D-printed PCM/TPMS heat sinks using MATLAB geometry generation and ANSYS simulation",
+                        "Conducted experimental thermal testing with thermocouple instrumentation and Omega data loggers",
+                        "Fabricated 316L stainless steel TPMS samples via metal paste deposition at three relative densities (25%, 35%, 45%)"
+                    ]
+                },
+                {
+                    title: "Graduate Teaching Assistant — Senior Design",
+                    company: "Fairfield University",
+                    date: "Aug 2025 – May 2026",
+                    bullets: [
+                        "Conducted CAD/DFM reviews and advised student teams on test planning and technical documentation",
+                        "Coordinated 3D printing logistics and facilitated industry mentor sessions for capstone teams"
+                    ]
+                },
+                {
+                    title: "Inspection Engineering Assistant",
+                    company: "Teamworks Real Estate Inspections, Paramus, NJ",
+                    date: "May 2024 – Aug 2024",
+                    bullets: [
+                        "Assessed mechanical, structural, and HVAC systems for engineering evaluation and compliance",
+                        "Produced CAD-based reports documenting system conditions and deficiencies",
+                        "Assisted property evaluations using drone and aerial technology"
+                    ]
+                },
+                {
+                    title: "Assistant Head of Outdoor Golf Operations",
+                    company: "Spring Brook Country Club, Morristown, NJ",
+                    date: "May 2021 – Present",
+                    bullets: [
+                        "Supervised daily operations, trained new staff on SOPs and service standards",
+                        "Resolved member issues through clear communication and problem solving"
+                    ]
+                }
+            ];
 
-              {/* About Section */}
-              <section id="about" className="bg-white py-16">
-                <div className="max-w-6xl mx-auto px-6">
-                  <h2 className="text-3xl font-bold text-slate-800 mb-6 text-center">About Me</h2>
-                  <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg shadow-md p-8">
-                    <p className="text-slate-700 leading-relaxed text-lg text-center max-w-4xl mx-auto mb-4">
-                      I'm a mechanical engineering graduate student at Fairfield University, specializing in thermal management systems 
-                      for electric vehicle batteries and precision manufacturing processes. My work focuses on translating theoretical 
-                      analysis into practical, manufacturable solutions through hands-on prototyping and rigorous experimental validation.
-                    </p>
-                    <p className="text-slate-700 leading-relaxed text-lg text-center max-w-4xl mx-auto">
-                      With experience leading cross-functional design teams and partnering with industry sponsors like O'Keefe Controls, 
-                      I've developed expertise in CAD/DFM, thermal analysis, and advanced manufacturing techniques including electrochemical 
-                      machining and 3D printing. I'm passionate about solving complex engineering challenges at the intersection of heat 
-                      transfer, materials science, and sustainable energy systems.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-4 mt-6 text-slate-700">
-                      <span className="flex items-center gap-2">
-                        📍 Morris Plains, NJ
-                      </span>
-                      <a href="mailto:michaelefelix.25@gmail.com" className="flex items-center gap-2 hover:text-blue-600 transition">
-                        ✉️ michaelefelix.25@gmail.com
-                      </a>
-                      <a href="tel:973-462-7097" className="flex items-center gap-2 hover:text-blue-600 transition">
-                        📞 973-462-7097
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Education */}
-              <section id="education" className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
-                <div className="max-w-6xl mx-auto px-6">
-                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">📚 Education</h2>
-                  <div className="space-y-4">
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                      <div className="flex flex-wrap justify-between items-start mb-2">
-                        <div>
-                          <h3 className="text-xl font-semibold text-slate-800">Master of Science in Mechanical Engineering</h3>
-                          <p className="text-slate-600">Fairfield University, Fairfield, CT</p>
+            return (
+                <div style={{ background: 'var(--cream)' }}>
+                    {/* NAV */}
+                    <nav className="nav">
+                        <span style={{ fontFamily: 'DM Serif Display, serif', color: 'white', fontSize: '1.1rem' }}>
+                            Michael Felix
+                        </span>
+                        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                            {['About', 'Projects', 'Skills', 'Experience', 'Contact'].map(s => (
+                                <button key={s} className="nav-link" onClick={() => scrollTo(s.toLowerCase())}>
+                                    {s}
+                                </button>
+                            ))}
                         </div>
-                        <span className="text-slate-500 font-medium">Class of 2026</span>
-                      </div>
-                      <p className="text-slate-700 mt-2">
-                        <strong>Thesis:</strong> 3D-printed PCM/TPMS heat-sink design & experimental validation for EV battery thermal management
-                      </p>
-                      <p className="text-slate-600 mt-1">Graduate TA (Senior Design): CAD/DFM reviews, test planning, documentation</p>
-                    </div>
-                    <div className="bg-white rounded-lg shadow-md p-6">
-                      <div className="flex flex-wrap justify-between items-start mb-2">
-                        <div>
-                          <h3 className="text-xl font-semibold text-slate-800">Bachelor of Science in Mechanical Engineering</h3>
-                          <p className="text-slate-600">Fairfield University, Fairfield, CT | Minor: Mathematics</p>
-                        </div>
-                        <span className="text-slate-500 font-medium">Class of 2025</span>
-                      </div>
-                      <p className="text-slate-700 mt-2"><strong>GPA:</strong> 3.67 Overall | 3.68 Major</p>
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">🏆 Tau Beta Pi Member</span>
-                        <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">🏆 Cum Laude</span>
-                        <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">Study Abroad: Galway, Ireland</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+                    </nav>
 
-              {/* Projects */}
-              <section id="portfolio" className="py-16 bg-white">
-                <div className="max-w-6xl mx-auto px-6">
-                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">🔧 Engineering Projects</h2>
-                  <div className="space-y-4">
-                    {projects.map((project) => (
-                      <div key={project.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-slate-200">
-                        <div 
-                          className="p-6 cursor-pointer hover:bg-slate-50 transition"
-                          onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-                        >
-                          <div className="flex justify-between items-start mb-2">
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between">
-                                <div>
-                                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium mb-2">
-                                    {project.category}
-                                  </span>
-                                  <h3 className="text-xl font-semibold text-slate-800">{project.title}</h3>
-                                  <p className="text-slate-600 italic">{project.subtitle}</p>
-                                </div>
-                                <div className="text-right ml-4">
-                                  <p className="text-slate-500 text-sm mb-2">{project.date}</p>
-                                  <span className="text-blue-600 text-2xl">{expandedProject === project.id ? '▲' : '▼'}</span>
-                                </div>
-                              </div>
-                              <p className="text-slate-700 mt-3">{project.description}</p>
+                    {/* HERO */}
+                    <section className="hero-bg" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', paddingTop: '4rem' }}>
+                        <div style={{ textAlign: 'center', color: 'white', padding: '2rem' }}>
+                            <p className="section-label fade-up delay-1" style={{ color: 'rgba(200,16,46,0.9)', marginBottom: '1.25rem' }}>
+                                Mechanical Engineer · MSME · Fairfield University
+                            </p>
+                            <h1 className="fade-up delay-2" style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)', lineHeight: 1.05, marginBottom: '0.75rem', fontWeight: 400 }}>
+                                Michael Felix
+                            </h1>
+                            <p className="fade-up delay-3" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.1rem', marginBottom: '2.5rem', fontFamily: 'DM Sans', maxWidth: '560px', margin: '0 auto 2.5rem' }}>
+                                Thermal systems, additive manufacturing, and precision engineering — from simulation to physical validation.
+                            </p>
+                            <div className="fade-up delay-4" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center' }}>
+                                <button className="btn-primary" onClick={() => scrollTo('projects')}>
+                                    View Projects
+                                </button>
+                                <a className="btn-ghost" href="documents/resume.pdf" download>
+                                    ↓ Resume
+                                </a>
+                                <a className="btn-ghost" href="https://www.linkedin.com/in/michael-felix-b35b8a231/" target="_blank" rel="noopener noreferrer">
+                                    LinkedIn
+                                </a>
+                                <button className="btn-ghost" onClick={() => scrollTo('contact')}>
+                                    Contact
+                                </button>
                             </div>
-                          </div>
                         </div>
-                        
-                        {expandedProject === project.id && (
-                          <div className="px-6 pb-6 border-t border-slate-200 pt-4">
-                            <h4 className="font-semibold text-slate-800 mb-2">Key Highlights:</h4>
-                            <ul className="space-y-1 mb-4">
-                              {project.highlights.map((highlight, idx) => (
-                                <li key={idx} className="text-slate-700 flex items-start">
-                                  <span className="text-blue-600 mr-2">•</span>
-                                  {highlight}
-                                </li>
-                              ))}
-                            </ul>
-                            <div className="mb-4">
-                              <h4 className="font-semibold text-slate-800 mb-2">Skills Applied:</h4>
-                              <div className="flex flex-wrap gap-2">
-                                {project.skills.map((skill, idx) => (
-                                  <span key={idx} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
-                                    {skill}
-                                  </span>
+                        <div className="bounce" style={{ position: 'absolute', bottom: '2rem', left: '50%' }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2">
+                                <path d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </section>
+
+                    {/* ABOUT */}
+                    <section id="about" style={{ background: 'white', padding: '5rem 1.5rem' }}>
+                        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                            <p className="section-label" style={{ marginBottom: '0.75rem' }}>About</p>
+                            <h2 style={{ fontSize: '2.25rem', marginBottom: '1.5rem', fontWeight: 400 }}>
+                                Engineer. Builder. Researcher.
+                            </h2>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                                <p style={{ color: '#4b5563', lineHeight: '1.8', fontSize: '0.975rem' }}>
+                                    I'm a mechanical engineer completing my MSME at Fairfield University in May 2026, with a thesis on 3D-printed hybrid TPMS lattice structures embedded in phase change materials for passive thermal management. My work spans the full cycle from mathematical geometry generation in MATLAB to fabrication and experimental validation.
+                                </p>
+                                <p style={{ color: '#4b5563', lineHeight: '1.8', fontSize: '0.975rem' }}>
+                                    Outside the lab, I built and shipped an iOS app (Scorecard) from scratch — handling product design, full-stack development, and App Store deployment solo. I'm drawn to problems that require both rigorous analysis and hands-on execution, and I'm targeting roles in defense and aerospace in the Northeast.
+                                </p>
+                            </div>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #f3f4f6', color: '#6b7280', fontSize: '0.875rem' }}>
+                                <span>📍 Morris Plains, NJ</span>
+                                <a href="mailto:michaelefelix.25@gmail.com" style={{ color: '#6b7280', textDecoration: 'none' }}>✉️ michaelefelix.25@gmail.com</a>
+                                <a href="tel:973-462-7097" style={{ color: '#6b7280', textDecoration: 'none' }}>📞 973-462-7097</a>
+                                <a href="https://felix-michael.github.io" style={{ color: '#6b7280', textDecoration: 'none' }}>🔗 felix-michael.github.io</a>
+                            </div>
+
+                            {/* Education inline */}
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '2.5rem' }}>
+                                {[
+                                    {
+                                        degree: "M.S. Mechanical Engineering",
+                                        school: "Fairfield University",
+                                        date: "Class of 2026",
+                                        detail: "Thesis: Hybrid TPMS/PCM heat sinks for EV battery thermal management",
+                                        honors: []
+                                    },
+                                    {
+                                        degree: "B.S. Mechanical Engineering",
+                                        school: "Fairfield University · Minor: Mathematics",
+                                        date: "Class of 2025",
+                                        detail: "GPA: 3.67 Overall · 3.68 Major · Study Abroad: Galway, Ireland",
+                                        honors: ["Tau Beta Pi", "Cum Laude"]
+                                    }
+                                ].map((ed, i) => (
+                                    <div key={i} className="card" style={{ padding: '1.25rem' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
+                                            <h3 style={{ fontSize: '1rem', fontFamily: 'DM Sans', fontWeight: 600, margin: 0 }}>{ed.degree}</h3>
+                                            <span style={{ color: 'var(--muted)', fontSize: '0.8rem', whiteSpace: 'nowrap', marginLeft: '0.5rem' }}>{ed.date}</span>
+                                        </div>
+                                        <p style={{ color: 'var(--muted)', fontSize: '0.85rem', margin: '0 0 0.5rem' }}>{ed.school}</p>
+                                        <p style={{ color: '#4b5563', fontSize: '0.8rem', margin: '0 0 0.5rem' }}>{ed.detail}</p>
+                                        <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                                            {ed.honors.map(h => <span key={h} className="badge-navy">{h}</span>)}
+                                        </div>
+                                    </div>
                                 ))}
-                              </div>
                             </div>
-                            {project.document && (
-                              <a
-                                href={`documents/${project.document}`}
-                                download
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition"
-                              >
-                                📄 Download Project Documentation
-                              </a>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
-
-              {/* Skills */}
-              <section id="skills" className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
-                <div className="max-w-6xl mx-auto px-6">
-                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Technical Skills</h2>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {Object.entries(skills).map(([category, skillList]) => (
-                      <div key={category} className="bg-white rounded-lg shadow-md p-6">
-                        <h3 className="text-lg font-semibold text-slate-800 mb-3">{category}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {skillList.map((skill, idx) => (
-                            <span key={idx} className="px-3 py-1 bg-blue-50 text-blue-800 rounded-md text-sm font-medium">
-                              {skill}
-                            </span>
-                          ))}
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
+                    </section>
 
-              {/* Work Experience */}
-              <section id="experience" className="py-16 bg-white">
-                <div className="max-w-6xl mx-auto px-6">
-                  <h2 className="text-3xl font-bold text-slate-800 mb-8 text-center">Work Experience</h2>
-                  <div className="space-y-4">
-                    <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
-                      <div className="flex flex-wrap justify-between items-start mb-2">
-                        <div>
-                          <h3 className="text-xl font-semibold text-slate-800">Inspector Assistant</h3>
-                          <p className="text-slate-600">Teamworks Real Estate Inspections, Paramus, NJ</p>
+                    <div className="divider" />
+
+                    {/* PROJECTS */}
+                    <section id="projects" style={{ padding: '5rem 1.5rem', background: 'var(--cream)' }}>
+                        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                            <p className="section-label" style={{ marginBottom: '0.75rem' }}>Portfolio</p>
+                            <h2 style={{ fontSize: '2.25rem', marginBottom: '2.5rem', fontWeight: 400 }}>Engineering Projects</h2>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                {projects.map((project) => (
+                                    <div key={project.id} className="card" style={{ overflow: 'hidden' }}>
+                                        <div
+                                            style={{ padding: '1.4rem 1.5rem', cursor: 'pointer', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}
+                                            onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
+                                        >
+                                            <div style={{ flex: 1, minWidth: 0 }}>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.5rem', alignItems: 'center' }}>
+                                                    <span className="badge-navy">{project.category}</span>
+                                                    {project.badge && <span className="badge">{project.badge}</span>}
+                                                    <span style={{ color: 'var(--muted)', fontSize: '0.8rem', marginLeft: 'auto' }}>{project.date}</span>
+                                                </div>
+                                                <h3 style={{ fontSize: '1.05rem', fontFamily: 'DM Sans', fontWeight: 600, margin: '0 0 0.2rem' }}>{project.title}</h3>
+                                                <p style={{ color: 'var(--muted)', fontSize: '0.875rem', margin: '0 0 0.6rem', fontStyle: 'italic' }}>{project.subtitle}</p>
+                                                <p style={{ color: '#4b5563', fontSize: '0.875rem', margin: 0, lineHeight: 1.6 }}>{project.description}</p>
+                                            </div>
+                                            <div className="expand-btn">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                                                    style={{ transform: expandedProject === project.id ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
+                                                    <path d="M19 9l-7 7-7-7"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        {expandedProject === project.id && (
+                                            <div style={{ padding: '0 1.5rem 1.5rem', borderTop: '1px solid #f3f4f6' }}>
+                                                {project.resultCallout && (
+                                                    <div className="result-callout" style={{ margin: '1.25rem 0 1rem' }}>
+                                                        <strong>Result:</strong> {project.resultCallout.replace('Key Finding: ', '')}
+                                                    </div>
+                                                )}
+                                                <h4 style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: '0.875rem', marginTop: project.resultCallout ? '0' : '1.25rem', marginBottom: '0.6rem', color: '#374151' }}>Key Highlights</h4>
+                                                <ul style={{ margin: '0 0 1.25rem', padding: 0, listStyle: 'none' }}>
+                                                    {project.highlights.map((h, idx) => (
+                                                        <li key={idx} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem', fontSize: '0.875rem', color: '#4b5563', lineHeight: 1.5 }}>
+                                                            <span style={{ color: 'var(--red)', marginTop: '0.1rem', flexShrink: 0 }}>—</span>
+                                                            {h}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: project.document ? '1rem' : '0' }}>
+                                                    {project.skills.map((s, idx) => (
+                                                        <span key={idx} className="skill-tag">{s}</span>
+                                                    ))}
+                                                </div>
+                                                {project.document && (
+                                                    <a href={`documents/${project.document}`} download className="btn-primary" style={{ marginTop: '1rem', fontSize: '0.85rem' }}>
+                                                        ↓ Download Documentation
+                                                    </a>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <span className="text-slate-500">May 2024 - August 2024</span>
-                      </div>
-                      <ul className="space-y-1 mt-3 text-slate-700">
-                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Gained hands-on CAD experience documenting field data and creating inspection reports</li>
-                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Assisted property evaluations using drone and aerial technology</li>
-                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Shadowed survey teams on boundary, topographic, and construction site assessments</li>
-                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Evaluated structural components, plumbing, electrical, and HVAC systems</li>
-                      </ul>
-                    </div>
-                    <div className="bg-white rounded-lg shadow-md p-6 border border-slate-200">
-                      <div className="flex flex-wrap justify-between items-start mb-2">
-                        <div>
-                          <h3 className="text-xl font-semibold text-slate-800">Assistant Head of Outdoor Golf Operations</h3>
-                          <p className="text-slate-600">Spring Brook Country Club, Morristown, NJ</p>
+                    </section>
+
+                    <div className="divider" />
+
+                    {/* SKILLS */}
+                    <section id="skills" style={{ padding: '5rem 1.5rem', background: 'white' }}>
+                        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                            <p className="section-label" style={{ marginBottom: '0.75rem' }}>Capabilities</p>
+                            <h2 style={{ fontSize: '2.25rem', marginBottom: '2.5rem', fontWeight: 400 }}>Technical Skills</h2>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '1rem' }}>
+                                {Object.entries(skills).map(([cat, list]) => (
+                                    <div key={cat} className="card" style={{ padding: '1.4rem' }}>
+                                        <h3 style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: '0.875rem', color: 'var(--navy)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{cat}</h3>
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                                            {list.map((s, i) => <span key={i} className="skill-tag">{s}</span>)}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <span className="text-slate-500">May 2021 - Present</span>
-                      </div>
-                      <ul className="space-y-1 mt-3 text-slate-700">
-                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Led supervisor coverage and projects to maintain smooth operations and schedules</li>
-                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Trained new staff on SOPs and service standards</li>
-                        <li className="flex items-start"><span className="text-blue-600 mr-2">•</span>Resolved member issues through clear communication and problem solving</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </section>
+                    </section>
 
-              {/* Contact */}
-              <section id="contact" className="py-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                  <h2 className="text-3xl font-bold mb-6">Let's Connect</h2>
-                  <p className="text-slate-300 mb-8 text-lg">
-                    Interested in discussing thermal management solutions, precision engineering, or collaboration opportunities?
-                  </p>
-                  <div className="flex flex-wrap justify-center gap-6">
-                    <a href="mailto:michaelefelix.25@gmail.com" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-                      ✉️ Email Me
-                    </a>
-                    <a href="https://www.linkedin.com/in/michael-felix-b35b8a231/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-                      💼 LinkedIn
-                    </a>
-                    <a href="tel:973-462-7097" className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-                      📞 Call Me
-                    </a>
-                    <a href="documents/resume.pdf" download className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition transform hover:scale-105">
-                      📥 Download Resume
-                    </a>
-                  </div>
-                </div>
-              </section>
+                    <div className="divider" />
 
-              {/* Footer */}
-              <footer className="bg-slate-900 text-white py-6">
-                <div className="max-w-6xl mx-auto px-6 text-center">
-                  <p className="text-slate-400 text-sm">© 2025 Michael Felix. All rights reserved.</p>
+                    {/* EXPERIENCE */}
+                    <section id="experience" style={{ padding: '5rem 1.5rem', background: 'var(--cream)' }}>
+                        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                            <p className="section-label" style={{ marginBottom: '0.75rem' }}>Experience</p>
+                            <h2 style={{ fontSize: '2.25rem', marginBottom: '2.5rem', fontWeight: 400 }}>Work History</h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                {experience.map((job, i) => (
+                                    <div key={i} className="card" style={{ padding: '1.4rem 1.5rem' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                            <h3 style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: '1rem', margin: 0 }}>{job.title}</h3>
+                                            <span style={{ color: 'var(--muted)', fontSize: '0.8rem', whiteSpace: 'nowrap' }}>{job.date}</span>
+                                        </div>
+                                        <p style={{ color: 'var(--red)', fontSize: '0.85rem', margin: '0 0 0.75rem', fontWeight: 500 }}>{job.company}</p>
+                                        <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                                            {job.bullets.map((b, j) => (
+                                                <li key={j} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.35rem', fontSize: '0.875rem', color: '#4b5563', lineHeight: 1.5 }}>
+                                                    <span style={{ color: 'var(--muted)', flexShrink: 0 }}>·</span>
+                                                    {b}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* CONTACT */}
+                    <section id="contact" style={{ background: 'var(--navy)', padding: '5rem 1.5rem' }}>
+                        <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+                            <p className="section-label" style={{ marginBottom: '0.75rem', color: 'rgba(200,16,46,0.8)' }}>Get In Touch</p>
+                            <h2 style={{ fontSize: '2.25rem', fontWeight: 400, color: 'white', marginBottom: '1rem' }}>Let's Connect</h2>
+                            <p style={{ color: 'rgba(255,255,255,0.55)', marginBottom: '2.5rem', lineHeight: 1.7, fontSize: '0.975rem' }}>
+                                Open to full-time roles in defense, aerospace, and thermal systems engineering in the Northeastern U.S. Feel free to reach out directly.
+                            </p>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'center' }}>
+                                <a href="mailto:michaelefelix.25@gmail.com" className="btn-primary">✉️ Email Me</a>
+                                <a href="https://www.linkedin.com/in/michael-felix-b35b8a231/" target="_blank" rel="noopener noreferrer" className="btn-ghost">💼 LinkedIn</a>
+                                <a href="documents/resume.pdf" download className="btn-ghost">↓ Resume</a>
+                                <a href="tel:973-462-7097" className="btn-ghost">📞 973-462-7097</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <footer style={{ background: '#111827', padding: '1.25rem', textAlign: 'center' }}>
+                        <p style={{ color: '#6b7280', fontSize: '0.8rem', margin: 0 }}>© 2026 Michael Felix · felix-michael.github.io</p>
+                    </footer>
                 </div>
-              </footer>
-            </div>
-          );
+            );
         }
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
